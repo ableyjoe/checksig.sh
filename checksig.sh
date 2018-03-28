@@ -85,6 +85,12 @@ then
   exit 3
 fi
 
+if [ ${remaining} -lt 0 ]
+then
+  echo "Signatures in zone ${zone} have expired, as observed on server ${server}"
+  exit 2
+fi
+
 if [ ${remaining} -lt ${crit} ]
 then
   echo "Remaining signature validity for zone ${zone} is ${remaining} seconds, less than the critical threshold of ${crit} seconds, as observed on server ${server}"
