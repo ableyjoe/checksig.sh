@@ -15,7 +15,7 @@ Syntax:
 Specify the thresholds in integer numbers of seconds, or echo "minutes
 with the suffix 'm', hours with 'h' or days with 'd'.
 
-Return codes are zero ("ok"), 1 ("warning"), 2 ("critical") or 99
+Return codes are zero ("ok"), 1 ("warning"), 2 ("critical") or 3
 ("weirdness"). This ought to be suitable for use as a nagios plugin.
 You need GNU awk installed (as "gawk", unless you make adjustments)
 in order to parse the expiration date in the target RRSIG.
@@ -30,7 +30,7 @@ together.  I hope you enjoy this documentation. It's all you're getting.
 jabley@nsrc.org
 regnauld@nsrc.org
 EOF
-  exit 99
+  exit 3
 fi
 
 timespec () {
@@ -60,7 +60,7 @@ crit=$(timespec $4)
 if [ ${warn} -lt ${crit} ]
 then
   echo "The warning threshold (${warn} seconds) is less than the critical threshold (${crit} seconds), which is weird." >&1
-  exit 99
+  exit 3
 fi
 
 remaining=$(dig @${server} ${zone} SOA +dnssec +noall +answer \
@@ -82,7 +82,7 @@ remaining=$(dig @${server} ${zone} SOA +dnssec +noall +answer \
 if [ -z "${remaining}" ]
 then
   echo "Could not find the signature expiration for zone ${zone}"
-  exit 99
+  exit 3
 fi
 
 if [ ${remaining} -lt ${crit} ]
