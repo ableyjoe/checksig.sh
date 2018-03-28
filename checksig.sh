@@ -16,7 +16,7 @@ Specify the thresholds in integer numbers of seconds, or echo "minutes
 with the suffix 'm', hours with 'h' or days with 'd'.
 
 Return codes are zero ("ok"), 1 ("warning"), 2 ("critical") or 3
-("weirdness"). This ought to be suitable for use as a nagios plugin.
+("unknown"). This ought to be suitable for use as a nagios plugin.
 You need GNU awk installed (as "gawk", unless you make adjustments)
 in order to parse the expiration date in the target RRSIG.
 
