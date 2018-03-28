@@ -87,7 +87,7 @@ fi
 
 if [ ${remaining} -lt 0 ]
 then
-  echo "Signatures in zone ${zone} have expired, as observed on server ${server}"
+  echo "Signatures in zone ${zone} expired $((-1 * ${remaining})) seconds ago, as observed on server ${server}"
   exit 2
 fi
 
