@@ -2,8 +2,11 @@
 
 Quick and dirty DNSSEC signature expiration check for Nagios.
 
-Check the remaining time before an SOA RRSIG expires, and respond to
-dangerous situations with appropriately-flappy arms.
+Check the remaining time before an SOA RRSIG expires, and respond
+to dangerous situations with appropriately-flappy arms. If there
+are multiple RRSIGs, react to the most dangerously-expirey-looking
+one.
+
 
 ## Syntax
 
@@ -75,5 +78,4 @@ together, while cursing at the fact that other dnssec check plugins had
 either disappeared, wouldn't compile, or wouldn't work with recent versions
 of Ruby. I hope you enjoy this documentation. It's all you're getting.
 
-jabley@nsrc.org
-regnauld@nsrc.org
+jabley@nsrc.org, regnauld@nsrc.org

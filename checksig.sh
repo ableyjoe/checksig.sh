@@ -6,8 +6,10 @@
 if [ $# -ne 4 ]
 then
   cat <<EOF >&2
-Check the remaining time before an SOA RRSIG expires, and respond to
-dangerous situations with appropriately-flappy arms.
+Check the remaining time before an SOA RRSIG expires, and respond
+to dangerous situations with appropriately-flappy arms. If there
+are multiple RRSIGs, react to the most dangerously-expirey-looking
+one.
 
 Syntax:
   $(basename $0) server zone warn-threshold crit-threshold
@@ -67,16 +69,21 @@ remaining=$(dig @${server} ${zone} SOA +dnssec +noall +answer \
     | gawk '
   /RRSIG/ {
     expiration = $9;
-    remaining = mktime(substr(expiration, 1, 4) " " \
+    time_left = mktime(substr(expiration, 1, 4) " " \
       substr(expiration, 5, 2) " " \
       substr(expiration, 7, 2) " " \
       substr(expiration, 9, 2) " " \
       substr(expiration, 11, 2) " " \
       substr(expiration, 13, 2)) - systime();
 
-    print remaining;
+    if (remaining)
+      remaining = (remaining > time_left ? time_left : remainig);
+    else
+      remaining = time_left;
+  }
 
-    exit;
+  END {
+    print remaining;
   }')
 
 if [ -z "${remaining}" ]
