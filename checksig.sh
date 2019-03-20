@@ -110,6 +110,6 @@ then
   exit 1
 fi
 
-echo "Remaining signature validity for zone ${zone} is ${remaining} seconds, which is ok (less than the warning threshold of ${warn} seconds), as observed on server ${server}"
+echo "Remaining signature validity for zone ${zone} is ${remaining} seconds, which is ok (more than the warning threshold of ${warn} seconds), as observed on server ${server}"
 
 exit 0
