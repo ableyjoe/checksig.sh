@@ -55,7 +55,7 @@ timespec () {
 }
 
 server=$1
-zone=$(timespec $2)
+zone=$2
 warn=$(timespec $3)
 crit=$(timespec $4)
 
