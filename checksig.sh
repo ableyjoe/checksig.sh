@@ -77,7 +77,7 @@ remaining=$(dig @${server} ${zone} SOA +dnssec +noall +answer \
       substr(expiration, 13, 2)) - systime();
 
     if (remaining)
-      remaining = (remaining > time_left ? time_left : remainig);
+      remaining = (remaining > time_left ? time_left : remaining);
     else
       remaining = time_left;
   }
